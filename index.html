@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🚨 Report an Incident - ጥቆማ app</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #8b5cf6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+      --gradient-success: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --border-radius: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #e2e8f0;
+      --border-color: #334155;
+    }
+
+    [data-theme="dark"] body {
+      background-color: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
+    }
+
+    [data-theme="dark"] .card {
+      background-color: var(--bg-secondary) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-color) !important;
+    }
+
+    [data-theme="dark"] .card-header {
+      border-color: var(--border-color) !important;
+    }
+
+    [data-theme="dark"] .text-muted {
+      color: var(--text-secondary) !important;
+    }
+
+    [data-theme="dark"] .navbar {
+      background-color: rgba(15, 23, 42, 0.95) !important;
+      border-color: var(--border-color) !important;
+    }
+
+    [data-theme="dark"] .nav-link {
+      color: var(--text-primary) !important;
+    }
+
+    [data-theme="dark"] .form-control,
+    [data-theme="dark"] .form-select {
+      background-color: var(--bg-secondary) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-color) !important;
+    }
+
+    [data-theme="dark"] .form-control:focus,
+    [data-theme="dark"] .form-select:focus {
+      background-color: var(--bg-secondary) !important;
+      color: var(--text-primary) !important;
+      border-color: #8b5cf6 !important;
+      box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25) !important;
+    }
+
+    [data-theme="dark"] .form-label {
+      color: var(--text-primary) !important;
+    }
+
+    [data-theme="dark"] .form-text {
+      color: var(--text-secondary) !important;
+    }
+
+    [data-theme="dark"] .lead {
+      color: var(--text-primary) !important;
+    }
+
+    * { transition: var(--transition); }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: var(--bg-primary) !important;
+      box-shadow: var(--shadow-lg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .navbar-brand {
+      background: var(--gradient-primary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .btn {
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.5rem;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .btn-primary { background: var(--gradient-primary); color: white; }
+    .btn-success { background: var(--gradient-success); color: white; }
+    .btn:hover { transform: translateY(-2px); }
+
+    .card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .form-control, .form-select {
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .theme-toggle {
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: 50px;
+      width: 50px;
+      height: 50px;
+      color: white;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-exclamation-triangle"></i>
+      ጥቆማ app
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto align-items-center gap-3">
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="about.html">
+            <i class="fas fa-info-circle me-1"></i>About Us
+          </a>
+        </li>
+        <li class="nav-item">
+          <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <!-- SSGI Logo -->
+        <div class="text-center mb-4">
+          <img src="../ssgi-logo.png" alt="SSGI - Space Science and Geospatial Institute" class="img-fluid" style="max-height: 180px; width: auto;">
+        </div>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<main class="container my-5">
+  <!-- Incident Report Form -->
+  <section class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-edit me-2"></i>
+            Incident Report Form
+          </h3>
+        </div>
+        <div class="card-body p-4">
+          <form id="reportForm" class="row g-4">
+            
+            <!-- Incident Type Selection -->
+            <div class="col-12">
+              <label class="form-label fw-bold">
+                <i class="fas fa-exclamation-triangle text-primary me-2"></i>
+                Incident Type *
+              </label>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="power_outage" value="የመብራት መጥፋት - Power outage" required>
+                    <label class="form-check-label" for="power_outage">
+                      <i class="fas fa-lightbulb text-warning me-2"></i>
+                      <strong>የመብራት መጥፋት</strong> - Power outage
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="water_shortage" value="የውሀ መቆራረጥ - Water shortage" required>
+                    <label class="form-check-label" for="water_shortage">
+                      <i class="fas fa-tint text-info me-2"></i>
+                      <strong>የውሀ መቆራረጥ</strong> - Water shortage
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="car_accident" value="የመኪና አደጋ - Car accident" required>
+                    <label class="form-check-label" for="car_accident">
+                      <i class="fas fa-car-crash text-danger me-2"></i>
+                      <strong>የመኪና አደጋ</strong> - Car accident
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="crime" value="ወንጀል - Crime" required>
+                    <label class="form-check-label" for="crime">
+                      <i class="fas fa-user-secret text-dark me-2"></i>
+                      <strong>ወንጀል</strong> - Crime
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="fire_accident" value="የእሳት አደጋ - Fire accident" required>
+                    <label class="form-check-label" for="fire_accident">
+                      <i class="fas fa-fire text-danger me-2"></i>
+                      <strong>የእሳት አደጋ</strong> - Fire accident
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="flood_disaster" value="የጎርፍ አደጋ - Flood disaster" required>
+                    <label class="form-check-label" for="flood_disaster">
+                      <i class="fas fa-water text-primary me-2"></i>
+                      <strong>የጎርፍ አደጋ</strong> - Flood disaster
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="religious_events" value="ሀይማኖታዊ ሁነቶች - Religious events" required>
+                    <label class="form-check-label" for="religious_events">
+                      <i class="fas fa-pray text-secondary me-2"></i>
+                      <strong>ሀይማኖታዊ ሁነቶች</strong> - Religious events
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="market_bazaar" value="ባዛር - Market/Bazaar" required>
+                    <label class="form-check-label" for="market_bazaar">
+                      <i class="fas fa-store text-success me-2"></i>
+                      <strong>ባዛር</strong> - Market/Bazaar
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="incident_type" id="other" value="Other" required>
+                    <label class="form-check-label" for="other">
+                      <i class="fas fa-ellipsis-h text-muted me-2"></i>
+                      <strong>Other</strong> - Different type of incident
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-text">
+                <i class="fas fa-info-circle me-1"></i>
+                Select the type of incident you want to report
+              </div>
+            </div>
+
+            <!-- Additional Description (Optional) -->
+            <div class="col-12">
+              <label class="form-label fw-bold">
+                <i class="fas fa-file-alt text-secondary me-2"></i>
+                Additional Details <small class="text-muted">(Optional)</small>
+              </label>
+              <textarea name="description" class="form-control" rows="3" 
+                        placeholder="Add any additional details about the incident..."></textarea>
+              <div class="form-text">
+                <i class="fas fa-info-circle me-1"></i>
+                Provide additional details if needed to help authorities respond appropriately
+              </div>
+            </div>
+            <!-- Location Information -->
+            <div class="col-12 col-md-6">
+              <label class="form-label fw-bold">
+                <i class="fas fa-map-marker-alt text-success me-2"></i>
+                Subcity/ክ/ከተማ *
+              </label>
+              <select name="subcity" class="form-select" required>
+                <option value="">Select Subcity</option>
+                <option value="Addis Ketema">Addis Ketema</option>
+                <option value="Akaky Kaliti">Akaky Kaliti</option>
+                <option value="Arada">Arada</option>
+                <option value="Bole">Bole</option>
+                <option value="Gullele">Gullele</option>
+                <option value="Kirkos">Kirkos</option>
+                <option value="Kolfe Keranio">Kolfe Keranio</option>
+                <option value="Lideta">Lideta</option>
+                <option value="Nifas Silk-Lafto">Nifas Silk-Lafto</option>
+                <option value="Yeka">Yeka</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label fw-bold">
+                <i class="fas fa-location-arrow text-warning me-2"></i>
+                District/ወረዳ
+              </label>
+              <input name="district" class="form-control" type="text" 
+                     placeholder="e.g., 03, 05, 08">
+            </div>
+
+            <!-- GPS Coordinates -->
+            <div class="col-12">
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h6 class="card-title d-flex align-items-center gap-2 mb-3">
+                    <i class="fas fa-satellite-dish text-info"></i>
+                    GPS Coordinates
+                    <small class="text-muted">(Auto-detection enabled)</small>
+                  </h6>
+                  <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                      <label class="form-label">
+                        <i class="fas fa-compass text-warning me-1"></i>
+                        Latitude
+                      </label>
+                      <input name="latitude" class="form-control" type="number" step="any" 
+                             placeholder="e.g., 9.0108">
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label">
+                        <i class="fas fa-globe-americas text-warning me-1"></i>
+                        Longitude
+                      </label>
+                      <input name="longitude" class="form-control" type="number" step="any" 
+                             placeholder="e.g., 38.7613">
+                    </div>
+                  </div>
+                  <div class="form-text mt-3">
+                    <i class="fas fa-info-circle text-primary me-1"></i>
+                    Location will be automatically detected if not provided
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Evidence Upload -->
+            <div class="col-12">
+              <label class="form-label fw-bold">
+                <i class="fas fa-camera text-success me-2"></i>
+                Evidence Upload
+                <small class="text-muted">- Photos or videos (optional)</small>
+              </label>
+              <input name="media" class="form-control" type="file" accept="image/*,video/*">
+              <div class="form-text">
+                <i class="fas fa-shield-check text-success me-1"></i>
+                Supported: JPG, PNG, GIF, MP4, MOV | Max: 10MB | Encrypted upload
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="col-12">
+              <div class="d-flex flex-wrap gap-3 align-items-center">
+                <button class="btn btn-success d-flex align-items-center gap-2" type="submit">
+                  <i class="fas fa-paper-plane"></i>
+                  Submit Report
+                </button>
+                <button class="btn btn-outline-secondary d-flex align-items-center gap-2" type="reset">
+                  <i class="fas fa-undo"></i>
+                  Reset Form
+                </button>
+                <button class="btn btn-info d-flex align-items-center gap-2" type="button" id="geoBtn">
+                  <i class="fas fa-crosshairs"></i>
+                  Get My Location
+                </button>
+                <div id="formStatus" class="ms-auto fw-semibold"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Information Cards -->
+  <section class="row g-4 mt-4">
+    <div class="col-md-4">
+      <div class="card h-100 text-center">
+        <div class="card-body">
+          <div class="mb-3">
+            <i class="fas fa-clock fa-3x text-primary"></i>
+          </div>
+          <h5 class="card-title">Quick Response</h5>
+          <p class="card-text">Reports are immediately forwarded to authorities for rapid response</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-center">
+        <div class="card-body">
+          <div class="mb-3">
+            <i class="fas fa-shield-alt fa-3x text-success"></i>
+          </div>
+          <h5 class="card-title">Secure & Private</h5>
+          <p class="card-text">Your personal information is protected and reports can be anonymous</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 text-center">
+        <div class="card-body">
+          <div class="mb-3">
+            <i class="fas fa-users fa-3x text-info"></i>
+          </div>
+          <h5 class="card-title">Community Safety</h5>
+          <p class="card-text">Help build a safer community through collaborative incident reporting</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-primary text-white py-4 mt-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <div class="d-flex align-items-center gap-3">
+          <i class="fas fa-shield-alt fa-2x"></i>
+          <div>
+            <h6 class="mb-0">Incident Reporter</h6>
+            <small>Keeping communities safe together</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 text-md-end mt-3 mt-md-0">
+        <small>
+          <i class="fas fa-lock me-1"></i>
+          Secure • Private • Reliable
+        </small>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Dark Mode Functionality
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const body = document.body;
+
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  body.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+  });
+
+  function updateThemeIcon(theme) {
+    themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+  }
+
+  // Configuration - Auto-detect API base URL
+  const CONFIG = {
+    apiBase: window.location.protocol === 'file:' ? 'http://localhost:5000' : window.location.origin,
+    endpoints: { create: '/api/report' }
+  };
+
+  // Elements
+  const formStatus = document.getElementById('formStatus');
+  const geoBtn = document.getElementById('geoBtn');
+
+  // Geolocation
+  geoBtn.addEventListener('click', async () => {
+    const latInput = document.querySelector('input[name="latitude"]');
+    const lngInput = document.querySelector('input[name="longitude"]');
+
+    geoBtn.disabled = true;
+    geoBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Getting Location...';
+
+    try {
+      const pos = await new Promise((res, rej) =>
+        navigator.geolocation.getCurrentPosition(res, rej, {
+          timeout: 8000,
+          enableHighAccuracy: true
+        })
+      );
+
+      latInput.value = pos.coords.latitude.toFixed(6);
+      lngInput.value = pos.coords.longitude.toFixed(6);
+      showNotification('Location detected successfully!', 'success');
+    } catch (err) {
+      showNotification('Could not detect location: ' + err.message, 'warning');
+    } finally {
+      geoBtn.disabled = false;
+      geoBtn.innerHTML = '<i class="fas fa-crosshairs me-2"></i>Get My Location';
+    }
+  });
+
+  // Form Submission
+  const form = document.getElementById('reportForm');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
+    formStatus.innerHTML = '<div class="text-primary"><i class="fas fa-cog fa-spin me-2"></i>Processing report...</div>';
+
+    const fd = new FormData(form);
+
+    // Combine incident type and additional description
+    const incidentType = fd.get("incident_type");
+    const additionalDesc = fd.get("description") || "";
+    const fullDescription = additionalDesc ? `${incidentType}. ${additionalDesc}` : incidentType;
+    fd.set("description", fullDescription);
+    // Auto-detect location if not provided
+    if(!fd.get('latitude') || !fd.get('longitude')){
+      try{
+        formStatus.innerHTML = '<div class="text-warning"><i class="fas fa-satellite-dish me-2"></i>Acquiring GPS...</div>';
+        const pos = await new Promise((res, rej) =>
+          navigator.geolocation.getCurrentPosition(res, rej, { timeout: 8000, enableHighAccuracy: true })
+        );
+        fd.set('latitude', pos.coords.latitude);
+        fd.set('longitude', pos.coords.longitude);
+      }catch(geoErr){
+        formStatus.innerHTML = '<div class="text-info"><i class="fas fa-info-circle me-2"></i>GPS unavailable - proceeding...</div>';
+      }
+    }
+
+    try{
+      console.log("Submitting to URL:", CONFIG.apiBase + CONFIG.endpoints.create);
+      console.log("Form data:", Object.fromEntries(fd.entries()));
+
+      const resp = await fetch(CONFIG.apiBase + CONFIG.endpoints.create, {
+        method: 'POST',
+        body: fd
+      });
+
+      console.log("Response status:", resp.status);
+      console.log("Response headers:", Object.fromEntries(resp.headers.entries()));
+
+      if(!resp.ok) {
+        const errorText = await resp.text();
+        console.error("Server error response:", errorText);
+        throw new Error(`Submission failed: ${resp.status} - ${errorText}`);
+      }
+
+      const result = await resp.json();
+      console.log("Success response:", result);
+
+      formStatus.innerHTML = '<div class="text-success"><i class="fas fa-check-circle me-2"></i>Report submitted successfully!</div>';
+      showNotification('Your incident report has been submitted and forwarded to authorities', 'success');
+
+      setTimeout(() => {
+        form.reset();
+        formStatus.innerHTML = '';
+      }, 3000);
+
+    }catch(err){
+      console.error("Submission error:", err);
+      formStatus.innerHTML = '<div class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Submission failed</div>';
+      showNotification(`Failed to submit report: ${err.message}`, 'danger');
+    }finally{
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
+      setTimeout(() => formStatus.innerHTML = '', 8000);
+    }
+  });
+
+  // Notification System
+  function showNotification(message, type = 'info') {
+    const colors = {
+      success: '#10b981',
+      danger: '#ef4444',
+      info: '#8b5cf6',
+      warning: '#f59e0b'
+    };
+
+    const toast = document.createElement('div');
+    toast.className = 'position-fixed top-0 end-0 m-3';
+    toast.style.zIndex = '9999';
+    toast.innerHTML = `
+      <div class="alert alert-${type} alert-dismissible fade show" role="alert" style="
+        border-radius: 16px;
+        font-weight: 500;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        min-width: 320px;
+      ">
+        <strong>System:</strong> ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    `;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      if (toast.parentNode) toast.remove();
+    }, 6000);
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', function() {
+    showNotification('Incident Reporter initialized - Ready to receive reports', 'success');
+  });
+</script>
+</body>
+</html>
